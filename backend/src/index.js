@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import bodyParser from "body-parser";
 
 import path from "path";
 
@@ -24,6 +25,10 @@ app.use(
     credentials: true,
   })
 );
+
+// Increase payload size limit
+app.use(bodyParser.json({ limit: "10mb" })); // Adjust the limit as needed
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
